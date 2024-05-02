@@ -18,6 +18,8 @@ instance/
 .venv
 env/
 myenv/
+obolVenv/
+obolVenv
 venv/
 ENV/
 env.bak/

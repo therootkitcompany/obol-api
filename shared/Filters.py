@@ -1,22 +1,22 @@
 from django_filters import rest_framework as filters
 from rest_framework import viewsets, mixins
-from rest_framework.filters import OrderingFilter
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
 
 
 class CustomFilterSet(filters.FilterSet):
     quantity = filters.NumberFilter(method='filter_quantity')
     direction = filters.CharFilter(method='filter_direction')
-    order = OrderingFilter()
+    # order = filters.OrderingFilter(fields=('name',))
 
     def filter_quantity(self, queryset, name, value):
-        quantity_value = int(value)
-        return queryset[:quantity_value] if quantity_value >= 0 else queryset
+        return queryset
 
     def filter_direction(self, queryset, name, value):
         if value.lower() == 'asc':
-            return queryset.order_by(self.data['order'])
+            return queryset.order_by(self.data.get('order', 'id'))
         elif value.lower() == 'desc':
-            return queryset.order_by(f'-{self.data["order"]}')
+            return queryset.order_by(f'-{self.data.get("order", "id")}')
         else:
             return queryset
 
@@ -24,8 +24,37 @@ class CustomFilterSet(filters.FilterSet):
         fields = []
 
 
+class CustomPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'quantity'
+    max_page_size = 100
+
+    def paginate_queryset(self, queryset, request, view=None):
+        return super().paginate_queryset(queryset, request, view)
+
+    def get_page_size(self, request):
+        if self.page_size_query_param:
+            try:
+                return min(int(request.query_params[self.page_size_query_param]), self.max_page_size)
+            except (KeyError, ValueError):
+                pass
+        return self.page_size
+
+    def get_paginated_response(self, data):
+        if self.page.paginator.count == 0:
+            return Response({
+                'count': 0,
+                'next': None,
+                'previous': None,
+                'results': []
+            })
+        else:
+            return super().get_paginated_response(data)
+
+
 class GenericViewSetWithFilters(mixins.ListModelMixin, viewsets.GenericViewSet):
     filterset_class = None
+    pagination_class = CustomPagination
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -33,10 +62,6 @@ class GenericViewSetWithFilters(mixins.ListModelMixin, viewsets.GenericViewSet):
             filterset = self.filterset_class(self.request.GET, queryset=queryset)
             queryset = filterset.qs
         return queryset
-
-    @classmethod
-    def get_ordering_fields(cls, model):
-        return [(field.name, field.name.capitalize()) for field in model._meta.get_fields() if hasattr(field, 'name')]
 
     def get_filterset_class(self):
         if self.filterset_class:

@@ -36,11 +36,11 @@ This Django-based API provides endpoints for managing donations. It allows users
    ```bash
    python manage.py runserver
 5. **Access to the api:**
-    'http://localhost:8000/v0/api'
+    'http://localhost:8000/api'
 
 ## 🛠️ Usage
 
-The API documentation is available at http://localhost:8000/v0/api/swagger/ or http://localhost:8000/v0/api/redoc/ when the server is running.
+The API documentation is available at http://localhost:8000/api/swagger/ or http://localhost:8000/api/redoc/ when the server is running.
 
 ## Contributing
 

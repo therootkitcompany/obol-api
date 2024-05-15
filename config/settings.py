@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # app
     'donation',
+    'organization',
     'shared'
 ]
 

@@ -10,8 +10,8 @@ from django_filters import rest_framework as filters
 
 
 @extend_schema_view(
-    list=extend_schema(description='Get paginated list of favourites.'),
-    create=extend_schema(description='Create a new favourite.', responses={200: DonationSerializer}),
+    list=extend_schema(description='Get paginated list of donations.'),
+    create=extend_schema(description='Create a new donation.', responses={200: DonationSerializer}),
 )
 class DonationViewSet(DynamicSerializersMixin, mixins.CreateModelMixin, GenericViewSetWithFilters, RetrieveAPIView):
     queryset = Donation.objects.all()

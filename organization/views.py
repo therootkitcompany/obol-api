@@ -10,7 +10,7 @@ from django_filters import rest_framework as filters
 
 
 @extend_schema_view(
-    list=extend_schema(description='Get paginated list of favourites.'),
+    list=extend_schema(description='Get paginated list of organizations.'),
 )
 class OrganizationViewSet(DynamicSerializersMixin, GenericViewSetWithFilters, RetrieveAPIView):
     queryset = Organization.objects.all()

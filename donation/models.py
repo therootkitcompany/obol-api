@@ -1,5 +1,8 @@
 from django.core.validators import EmailValidator, MaxLengthValidator
 from django.db import models
+from django.db.models.deletion import CASCADE
+
+from organization.models import Organization
 
 
 # Create your models here.
@@ -35,6 +38,9 @@ class Donation(models.Model):
         null=False,
         blank=False
     )
+    organization = models.ForeignKey(Organization, on_delete=CASCADE, related_name="donations",
+                                     related_query_name='donation',
+                                     null=False, blank=False)
 
     class Meta:
         ordering = ['-id']

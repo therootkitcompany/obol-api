@@ -1,0 +1,13 @@
+[
+  {
+    "pk": 2,
+    "model": "organization.organization",
+    "fields": {
+      "name": "test2",
+      "description": "test2",
+      "email": "test2@gmail.com",
+      "phone": "655435673",
+      "bankAccount": "ES10826821490033023553298"
+    }
+  }
+]

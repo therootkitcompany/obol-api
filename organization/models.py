@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from django.core.validators import EmailValidator, MaxLengthValidator, RegexValidator
 from django.db import models
 import re
@@ -18,8 +20,7 @@ class Organization(models.Model):
     phoneRegex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be in the correct format.")
     phone = models.CharField(max_length=17, validators=[phoneRegex], blank=True)
     bankAccount = models.CharField(max_length=50)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def clean(self):
         super().clean()

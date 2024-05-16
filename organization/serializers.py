@@ -16,8 +16,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'description',
             'phone',
             'bankAccount',
-            'created_at',
-            'updated_at',
+            'created_at'
         )
 
     def get_bankAccount(self, obj: Organization):

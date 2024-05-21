@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_migrate
 from django.dispatch import receiver
 
 from config import settings
@@ -6,7 +6,17 @@ from donation.models import Donation
 
 import stripe
 
-stripe.api_key = settings.STRIPE_KEY;
+from organization.models import Organization
+from shared.StripeUtils import create_stripe_client
+
+stripe.api_key = settings.STRIPE_KEY
+
+
+@receiver(post_migrate)
+def create_stripe_clients(sender, **kwargs):
+    organizations = Organization.objects.all()
+    for organization in organizations:
+        create_stripe_client(organization)
 
 
 @receiver(post_save, sender=Donation)

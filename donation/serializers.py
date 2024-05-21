@@ -4,6 +4,7 @@ from donation.models import Donation
 from organization.models import Organization
 from organization.serializers import OrganizationSerializer
 from shared.Filters import CustomFilterSet
+from shared.signals import test
 
 
 class SimpleDonationSerializer(serializers.ModelSerializer):
@@ -46,6 +47,7 @@ class DonationSerializer(serializers.ModelSerializer):
 class CreateDonationSerializer(serializers.ModelSerializer):
     idOrganization = serializers.PrimaryKeyRelatedField(queryset=Organization.objects.all(), write_only=True)
     organization = OrganizationSerializer(read_only=True)
+    creditToken = serializers.CharField(write_only=True)
 
     class Meta:
         model = Donation
@@ -54,9 +56,15 @@ class CreateDonationSerializer(serializers.ModelSerializer):
             'name',
             'surname',
             'amount',
+            'creditToken',
             'idOrganization',
             'organization'
         )
+
+    def validate_credit_card(self, value):
+        if not Donation.validate_credit_card(value):
+            raise serializers.ValidationError("Invalid credit card number")
+        return value
 
     def create(self, validated_data):
         status: str = 'Pending'
@@ -67,7 +75,7 @@ class CreateDonationSerializer(serializers.ModelSerializer):
             organization=organization,
             **validated_data
         )
-
+        # test(instance.creditCard, instance.organization.bankAccount, instance.amount, '123', '20', '25')
         return instance
 
     def to_representation(self, data):

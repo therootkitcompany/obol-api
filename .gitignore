@@ -38,3 +38,4 @@ secret/
 
 *.pdf
 report.pdf
+/keys/

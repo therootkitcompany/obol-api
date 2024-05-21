@@ -1,6 +1,7 @@
 from django.core.validators import EmailValidator, MaxLengthValidator
 from django.db import models
 from django.db.models.deletion import CASCADE
+from django_crypto_fields.fields import EncryptedCharField
 
 from organization.models import Organization
 
@@ -38,9 +39,23 @@ class Donation(models.Model):
         null=False,
         blank=False
     )
+    creditToken = EncryptedCharField(max_length=19)
     organization = models.ForeignKey(Organization, on_delete=CASCADE, related_name="donations",
                                      related_query_name='donation',
                                      null=False, blank=False)
 
     class Meta:
         ordering = ['-id']
+
+    @staticmethod
+    def validate_credit_card(card_number):
+        def digits_of(n):
+            return [int(d) for d in str(n)]
+
+        digits = digits_of(card_number)
+        odd_digits = digits[-1::-2]
+        even_digits = digits[-2::-2]
+        checksum = sum(odd_digits)
+        for d in even_digits:
+            checksum += sum(digits_of(d * 2))
+        return checksum % 10 == 0

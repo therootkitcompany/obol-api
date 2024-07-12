@@ -17,6 +17,9 @@ from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DJANGO_CRYPTO_FIELDS_KEY_PATH = os.path.join(BASE_DIR, 'keys')
+AUTO_CREATE_KEYS = True
+STRIPE_KEY = 'sk_test_51P9rADIvP36SEYQgFmCNBRIdbbk3ZWhFRLpOpiRTuHA5db4fhYlyHmTzsKwMyuQZ3kJNQtyvcQAVUSkAtS235U8B00zJKlIwLQ';
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -36,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crypto_fields.apps.AppConfig',
     # REST Framework
     'rest_framework.authtoken',
     'rest_framework',

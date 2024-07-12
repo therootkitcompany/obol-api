@@ -4,7 +4,6 @@ from donation.models import Donation
 from organization.models import Organization
 from organization.serializers import OrganizationSerializer
 from shared.Filters import CustomFilterSet
-from shared.signals import test
 
 
 class SimpleDonationSerializer(serializers.ModelSerializer):
@@ -75,7 +74,6 @@ class CreateDonationSerializer(serializers.ModelSerializer):
             organization=organization,
             **validated_data
         )
-        # test(instance.creditCard, instance.organization.bankAccount, instance.amount, '123', '20', '25')
         return instance
 
     def to_representation(self, data):

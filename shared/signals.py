@@ -6,26 +6,16 @@ from donation.models import Donation
 
 import stripe
 
-from organization.models import Organization
-from shared.StripeUtils import create_stripe_client
-
 stripe.api_key = settings.STRIPE_KEY
 
 
-@receiver(post_migrate)
-def create_stripe_clients(sender, **kwargs):
-    organizations = Organization.objects.all()
-    for organization in organizations:
-        create_stripe_client(organization)
-
-
 @receiver(post_save, sender=Donation)
-def do_transfer(sender, instance, created, **kwargs):
+def create_donation(sender, instance, created, **kwargs):
     if created:
-        test(instance.creditToken, instance.amount, instance.organization.bankAccount)
+        do_transfer(instance.creditToken, instance.amount, instance.organization.bankAccount)
 
 
-def test(creditToken, amount, bankAccount):
+def do_transfer(creditToken, amount, bankAccount):
     try:
         charge = stripe.Charge.create(
             amount=amount,
@@ -34,7 +24,23 @@ def test(creditToken, amount, bankAccount):
             source=creditToken,
         )
 
-        return charge
+        transfer = stripe.Transfer.create(
+            amount=int(amount * 0.8),
+            currency="eur",
+            destination='acct_1PJc2lBLXLGx5g20',
+            description="Test",
+        )
+        return charge, transfer
     except stripe.error.CardError as e:
         print("Error al procesar la transacción:", str(e))
         return None
+
+
+def get_destination():
+    cliente = stripe.Customer.retrieve('cus_Q9VrNKcw6NpZO4')
+    if 'default_source' in cliente:
+        default_source = stripe.Source.retrieve('pm_1PJCpZIvP36SEYQg6tfvn00k')
+        if default_source.object == 'source':
+            if default_source.type == 'sepa_debit':
+                return default_source.id
+    return None

@@ -36,3 +36,4 @@ fpdf~=1.7.2
 django-filter==24.2
 django-crypto-fields==0.4.1
 stripe==9.7.0
+adyen==12.3.0

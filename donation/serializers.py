@@ -4,7 +4,7 @@ from donation.models import Donation
 from organization.models import Organization
 from organization.serializers import OrganizationSerializer
 from shared.Filters import CustomFilterSet
-
+from shared.signals import testAdyen
 
 class SimpleDonationSerializer(serializers.ModelSerializer):
     class Meta:

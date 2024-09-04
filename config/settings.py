@@ -19,7 +19,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DJANGO_CRYPTO_FIELDS_KEY_PATH = os.path.join(BASE_DIR, 'keys')
 AUTO_CREATE_KEYS = True
-STRIPE_KEY = 'sk_test_51P9rADIvP36SEYQgFmCNBRIdbbk3ZWhFRLpOpiRTuHA5db4fhYlyHmTzsKwMyuQZ3kJNQtyvcQAVUSkAtS235U8B00zJKlIwLQ';
+
+STRIPE_KEY = 'sk_test_51P9rADIvP36SEYQgFmCNBRIdbbk3ZWhFRLpOpiRTuHA5db4fhYlyHmTzsKwMyuQZ3kJNQtyvcQAVUSkAtS235U8B00zJKlIwLQ'
+ADYEN_API_KEY = 'AQEthmfxJ4LJaRBFw0m/n3Q5qf3VZ4lCAbJJW2pDyGwIt2IIWLaBwN69qdAjtvN+EMFdWw2+5HzctViMSCJMYAc=-9vtztF3YvXxXjh7XsC+MLmPV7gj5NLMwU5qDw6t5Rsw=-i1iXVH+4EE5_&(g*bE?'
+ADYEN_MERCHANT_ACCOUNT = 'ObolAccount_Python_Api_TEST'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 

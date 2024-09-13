@@ -5,8 +5,6 @@ from shared.Filters import CustomFilterSet
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
-    bankAccount = serializers.SerializerMethodField()
-
     class Meta:
         model = Organization
         fields = (
@@ -15,12 +13,16 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'name',
             'description',
             'phone',
+            'currency',
             'bankAccount',
+            'countryCode',
+            'line1',
+            'city',
+            'state',
+            'postalCode',
+            'web',
             'created_at'
         )
-
-    def get_bankAccount(self, obj: Organization):
-        return obj.mask_bankAccount()
 
 
 class OrganizationFilterSet(CustomFilterSet):
@@ -31,4 +33,10 @@ class OrganizationFilterSet(CustomFilterSet):
             'name',
             'description',
             'phone',
+            'currency',
+            'countryCode',
+            'line1',
+            'city',
+            'state',
+            'postalCode'
         ]

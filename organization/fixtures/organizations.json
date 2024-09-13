@@ -1,13 +1,20 @@
 [
   {
-    "pk": 2,
+    "pk": 1,
     "model": "organization.organization",
     "fields": {
-      "name": "test2",
-      "description": "test2",
-      "email": "test2@gmail.com",
-      "phone": "655435673",
-      "bankAccount": "ES10826821490033023553298"
+      "name": "Organizacion Benefica",
+      "description": "Ruben Martinez",
+      "email": "rumabe97222233211@gmail.com",
+      "phone": "+34 655435673",
+      "bankAccount": "ES0700120345030000067890",
+      "countryCode": "ES",
+      "currency": "EUR",
+      "line1": "C\\ Cervantes Nº 15",
+      "city": "Aldeanueva de ebro",
+      "state": "La Rioja",
+      "postalCode": "26559",
+      "web": "https://www.rumabe.dev"
     }
   }
 ]

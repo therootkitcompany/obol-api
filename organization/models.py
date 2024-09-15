@@ -30,7 +30,7 @@ class Organization(models.Model):
                                    )
     currencyRegex = RegexValidator(regex=r'^[A-Z]{3}$',
                                    message="Enter the currency code (ISO 4217), e.g., 'USD' for U.S. dollars or 'EUR' for euros")
-    currency = models.CharField(max_length=2,
+    currency = models.CharField(max_length=3,
                                 validators=[currencyRegex],
                                 default="EUR"
                                 )

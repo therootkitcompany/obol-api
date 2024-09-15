@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     # app
     'donation',
     'organization',
+    'charges',
     'shared'
 ]
 

@@ -1,4 +1,4 @@
-from django.core.validators import EmailValidator, MaxLengthValidator
+from django.core.validators import EmailValidator, MaxLengthValidator, RegexValidator
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django_crypto_fields.fields import EncryptedCharField
@@ -22,7 +22,12 @@ class Donation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     amount = models.PositiveIntegerField(default=1)
-    status = models.CharField(max_length=255, default="Pending")
+    currencyRegex = RegexValidator(regex=r'^[A-Z]{3}$',
+                                   message="Enter the currency code (ISO 4217), e.g., 'USD' for U.S. dollars or 'EUR' for euros")
+    currency = models.CharField(max_length=3,
+                                validators=[currencyRegex],
+                                default="EUR"
+                                )
     country = models.CharField(
         max_length=100,
         validators=[

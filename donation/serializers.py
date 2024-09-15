@@ -17,7 +17,7 @@ class SimpleDonationSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             'amount',
-            'status',
+            'currency',
             'country',
             'city'
         )
@@ -37,7 +37,7 @@ class DonationSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             'amount',
-            'status',
+            'currency',
             'country',
             'city'
         )
@@ -55,22 +55,16 @@ class CreateDonationSerializer(serializers.ModelSerializer):
             'name',
             'surname',
             'amount',
+            'currency',
             'creditToken',
             'idOrganization',
             'organization'
         )
 
-    def validate_credit_card(self, value):
-        if not Donation.validate_credit_card(value):
-            raise serializers.ValidationError("Invalid credit card number")
-        return value
-
     def create(self, validated_data):
-        status: str = 'Pending'
         organization = validated_data.pop('idOrganization')
 
         instance = Donation.objects.create(
-            status=status,
             organization=organization,
             **validated_data
         )
@@ -87,5 +81,6 @@ class DonationFilterSet(CustomFilterSet):
             'email',
             'name',
             'surname',
-            'amount'
+            'amount',
+            'currency'
         ]

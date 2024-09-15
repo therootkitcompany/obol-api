@@ -22,15 +22,12 @@ def do_transfer(creditToken, amount, account):
             currency=account.currency,
             description='Donation test',
             source=creditToken,
+            transfer_data={
+                'destination': account.stripeId,
+            },
+            application_fee_amount=int(amount * 0.25),
         )
-
-        transfer = stripe.Transfer.create(
-            amount=int(amount * 0.8),
-            currency=account.currency,
-            destination=account.stripeId,
-            description="Test",
-        )
-        return charge, transfer
+        return charge
     except stripe.error.CardError as e:
         print("Error al procesar la transacción:", str(e))
         return None

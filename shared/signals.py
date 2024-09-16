@@ -8,6 +8,8 @@ from donation.models import Donation
 
 import stripe
 
+from shared.errorHandler import StripeChargeError
+
 stripe.api_key = settings.STRIPE_KEY
 
 
@@ -41,8 +43,26 @@ def do_transfer(donation):
         )
         save_charge(charge, donation)
     except stripe.error.CardError as e:
-        print("Error al procesar la transacción:", str(e))
-        return None
+        body = e.json_body
+        err = body.get('error', {})
+        raise_error(f"Your card was declined: {err.get('message')}", 402, donation)
+    except stripe.error.RateLimitError as e:
+        raise_error("Rate limit exceeded, please try again later.", 429, donation)
+    except stripe.error.InvalidRequestError as e:
+        raise_error(f"Invalid request: {e}", 400, donation)
+    except stripe.error.AuthenticationError as e:
+        raise_error("Authentication failed, please check your API keys.", 401, donation)
+    except stripe.error.APIConnectionError as e:
+        raise_error("Network communication with Stripe failed.", 503, donation)
+    except stripe.error.StripeError as e:
+        raise_error("An error occurred with Stripe, please try again later.", 500, donation)
+    except Exception as e:
+        raise_error(f"An unexpected error occurred: {e}", 500, donation)
+
+
+def raise_error(message, code, donation):
+    donation.delete()
+    raise StripeChargeError(message, code)
 
 
 def save_charge(charge, donation):

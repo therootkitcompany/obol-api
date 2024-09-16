@@ -24,9 +24,9 @@ from config import settings
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   # path('dj-rest-authentication/', include('dj_rest_auth.urls')),
-                  path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-                  path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-                  path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-                  path('api/donation/', include('donation.urls')),
-                  path('api/organization/', include('organization.urls')),
+                  path('v0/schema/', SpectacularAPIView.as_view(), name='schema'),
+                  path('v0/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+                  path('v0/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+                  path('v0/donation/', include('donation.urls')),
+                  path('v0/organization/', include('organization.urls')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

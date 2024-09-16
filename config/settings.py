@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from datetime import timedelta
+from email.policy import default
 from pathlib import Path
 from decouple import config
 
@@ -19,7 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DJANGO_CRYPTO_FIELDS_KEY_PATH = os.path.join(BASE_DIR, 'keys')
 AUTO_CREATE_KEYS = True
-STRIPE_KEY = 'sk_test_51P9rADIvP36SEYQgFmCNBRIdbbk3ZWhFRLpOpiRTuHA5db4fhYlyHmTzsKwMyuQZ3kJNQtyvcQAVUSkAtS235U8B00zJKlIwLQ';
+STRIPE_KEY = config('STRIPE_KEY',
+                    default='sk_test_51P9rADIvP36SEYQgFmCNBRIdbbk3ZWhFRLpOpiRTuHA5db4fhYlyHmTzsKwMyuQZ3kJNQtyvcQAVUSkAtS235U8B00zJKlIwLQ')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -156,7 +158,7 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'Obol API',
     'DESCRIPTION': 'Obol api project - https://github.com/therootkitcompany/obol-api',
     'VERSION': 0,
-    'SCHEMA_PATH_PREFIX': r'/api/',
+    'SCHEMA_PATH_PREFIX': r'/v0/',
 }
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

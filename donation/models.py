@@ -48,6 +48,7 @@ class Donation(models.Model):
         blank=False
     )
     creditToken = EncryptedCharField(max_length=19)
+    clientIp = models.GenericIPAddressField(protocol='both', null=True, blank=True)
     organization = models.ForeignKey(Organization, on_delete=CASCADE, related_name="donations",
                                      related_query_name='donation',
                                      null=False, blank=False)

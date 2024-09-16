@@ -32,6 +32,7 @@ def do_transfer(donation):
                 'destination': donation.organization.stripeId,
             },
             application_fee_amount=int(donation.amount * 0.25),
+            ip=donation.clientIp,
             metadata={
                 'donor_email': donation.email,
                 'donor_name': donation.name + donation.surname,

@@ -1,3 +1,5 @@
+import uuid
+
 from django.core.validators import EmailValidator, MaxLengthValidator, RegexValidator
 from django.db import models
 from django.db.models.deletion import CASCADE
@@ -9,6 +11,7 @@ from organization.models import Organization
 # Create your models here.
 
 class Donation(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(
         validators=[
             EmailValidator(message="Please enter a valid email address."),

@@ -1,3 +1,4 @@
+import uuid
 from email.policy import default
 
 from django.utils import timezone
@@ -9,6 +10,7 @@ from django.core.exceptions import ValidationError
 
 
 class Organization(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255, null=False, unique=True)
     description = models.CharField(max_length=10000, null=False)
     email = models.EmailField(

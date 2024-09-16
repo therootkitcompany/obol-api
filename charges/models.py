@@ -1,3 +1,5 @@
+import uuid
+
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.deletion import CASCADE
@@ -6,6 +8,7 @@ from donation.models import Donation
 
 
 class Charge(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     status = models.CharField(max_length=20)
     receiptUrl = models.URLField(blank=True, null=True)
     paymentMethod = models.CharField(max_length=255, blank=True, null=True)

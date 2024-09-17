@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'donation',
     'organization',
     'charges',
+    'apiErrors',
     'shared'
 ]
 
@@ -69,7 +70,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'shared.errorHandler.CustomErrorMiddleware'
+    'shared.errorHandler.CustomErrorMiddleware',
+    'shared.apiErrorLog.ApiErrorLoggingMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'

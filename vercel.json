@@ -12,8 +12,5 @@
       "src": "/(.*)",
       "dest": "config/wsgi.py"
     }
-  ],
-  "hooks": {
-    "postdeploy": "python manage.py migrate"
-  }
+  ]
 }

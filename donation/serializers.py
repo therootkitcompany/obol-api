@@ -18,8 +18,8 @@ class SimpleDonationSerializer(serializers.ModelSerializer):
             'updated_at',
             'amount',
             'currency',
-            # 'country',
-            # 'city'
+            'country',
+            'city'
         )
 
 
@@ -38,8 +38,8 @@ class DonationSerializer(serializers.ModelSerializer):
             'updated_at',
             'amount',
             'currency',
-            # 'country',
-            # 'city'
+            'country',
+            'city'
         )
 
 
@@ -56,6 +56,8 @@ class CreateDonationSerializer(serializers.ModelSerializer):
             'surname',
             'amount',
             'currency',
+            'country',
+            'city',
             'creditToken',
             'clientIp',
             'idOrganization',
@@ -83,5 +85,7 @@ class DonationFilterSet(CustomFilterSet):
             'name',
             'surname',
             'amount',
-            'currency'
+            'currency',
+            'country',
+            'city'
         ]

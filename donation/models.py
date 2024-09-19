@@ -18,6 +18,7 @@ class Donation(models.Model):
             MaxLengthValidator(254, message="Email address must be at most 254 characters long.")
         ],
         null=False,
+        max_length=50,
         blank=False
     )
     name = models.CharField(max_length=255, null=False)

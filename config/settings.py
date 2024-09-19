@@ -19,9 +19,9 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-$y-!3urg7od6%w*oh*3%d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DJANGO_DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOST', default=['*'], cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOST', default='*', cast=Csv())
 CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALL', default=True, cast=bool)
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGIN', default=[], cast=Csv())
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGIN', default='', cast=Csv())
 CORS_ALLOW_METHODS = [
     'GET',
     'POST',
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'django_filters',
     'corsheaders',
+    'axes',
     # app
     'donation',
     'organization',
@@ -63,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'axes.middleware.AxesMiddleware',
     'shared.errorHandler.CustomErrorMiddleware',
     'shared.apiErrorLog.ApiErrorLoggingMiddleware'
 ]
@@ -192,6 +194,12 @@ LOGGING = {
         }
     }
 }
+
+ADMIN_URL = config('ADMIN_URL', default='admin/')
+
+AXES_FAILURE_LIMIT = 5
+AXES_COOLOFF_TIME = 1
+AXES_USE_USER_AGENT = True
 
 if config('DJANGO_PRODUCTION_ENV', default=False, cast=bool):
     from .settings_production import *

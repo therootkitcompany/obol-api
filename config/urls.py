@@ -22,7 +22,7 @@ from django.conf.urls import include
 from config import settings
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
+                  path(settings.ADMIN_URL, admin.site.urls),
                   # path('dj-rest-authentication/', include('dj_rest_auth.urls')),
                   path('v0/schema/', SpectacularAPIView.as_view(), name='schema'),
                   path('v0/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),

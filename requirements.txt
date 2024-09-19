@@ -35,4 +35,5 @@ whitenoise==6.6.0
 fpdf~=1.7.2
 django-filter==24.2
 django-crypto-fields==0.4.1
+django-axes==6.5.1
 stripe==9.7.0

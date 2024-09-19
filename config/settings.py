@@ -2,7 +2,7 @@ import os
 from datetime import timedelta
 from email.policy import default
 from pathlib import Path
-from decouple import config
+from decouple import config, Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,9 +19,9 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-$y-!3urg7od6%w*oh*3%d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DJANGO_DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOST', default=['*'])
-CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALL', default=True)
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGIN', default=[])
+ALLOWED_HOSTS = config('ALLOWED_HOST', default=['*'], cast=Csv())
+CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALL', default=True, cast=bool)
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGIN', default=[], cast=Csv())
 CORS_ALLOW_METHODS = [
     'GET',
     'POST',

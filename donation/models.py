@@ -3,7 +3,6 @@ import uuid
 from django.core.validators import EmailValidator, MaxLengthValidator, RegexValidator
 from django.db import models
 from django.db.models.deletion import CASCADE
-from django_crypto_fields.fields import EncryptedCharField
 
 from organization.models import Organization
 
@@ -48,7 +47,7 @@ class Donation(models.Model):
         null=False,
         blank=False
     )
-    creditToken = EncryptedCharField(max_length=19)
+    creditToken = models.CharField(max_length=1000)
     clientIp = models.GenericIPAddressField(protocol='both', null=True, blank=True)
     organization = models.ForeignKey(Organization, on_delete=CASCADE, related_name="donations",
                                      related_query_name='donation',

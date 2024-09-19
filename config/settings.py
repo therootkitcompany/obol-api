@@ -2,13 +2,16 @@ import os
 from datetime import timedelta
 from email.policy import default
 from pathlib import Path
+
+from cryptography.fernet import Fernet
 from decouple import config, Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DJANGO_CRYPTO_FIELDS_KEY_PATH = os.path.join(BASE_DIR, 'keys')
-AUTO_CREATE_KEYS = True
+CRYPTO_KEY = config('CRYPTO_KEY', default='VZlSK7FsSiRvqP5cJVvYRh2o9QY4znPPm5zgIIBVXK8=')
+cipher_suite = Fernet(CRYPTO_KEY)
+
 STRIPE_KEY = config('STRIPE_KEY',
                     default='sk_test_51P9rADIvP36SEYQgFmCNBRIdbbk3ZWhFRLpOpiRTuHA5db4fhYlyHmTzsKwMyuQZ3kJNQtyvcQAVUSkAtS235U8B00zJKlIwLQ')
 # Quick-start development settings - unsuitable for production
@@ -36,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_crypto_fields.apps.AppConfig',
     # REST Framework
     'rest_framework.authtoken',
     'rest_framework',

@@ -4,8 +4,8 @@
     "model": "organization.organization",
     "fields": {
       "name": "Organizacion Benefica",
-      "description": "Ruben Martinez",
-      "email": "rumabe97@gmail.com",
+      "description": "Pablo Arrastia",
+      "email": "arrastia@gmail.com",
       "phone": "+34 655435673",
       "bankAccount": "ES0700120345030000067890",
       "countryCode": "ES",

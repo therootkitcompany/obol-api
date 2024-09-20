@@ -47,7 +47,7 @@ def create_account(organization, bankAccount):
         email=organization.email,
         capabilities={
             'transfers': {'requested': True},
-            'card_payments': {'requested': True},
+            # 'card_payments': {'requested': True}
         },
         business_type="individual",
         individual={
@@ -72,11 +72,7 @@ def create_account(organization, bankAccount):
         business_profile={
             "url": organization.web,
             "product_description": "Donation platform for " + organization.name
-        }
-    )
-
-    stripe.Account.modify(
-        account.id,
+        },
         tos_acceptance={"date": 1609798905, "ip": "8.8.8.8"},
     )
 

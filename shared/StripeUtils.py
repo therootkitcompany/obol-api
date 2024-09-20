@@ -71,7 +71,11 @@ def create_account(organization, bankAccount):
         external_account=bankAccount['id'],
         business_profile={
             "url": organization.web,
-            "product_description": "Donation platform for " + organization.name
+            "product_description": organization.description,
+            "mcc": "8398",
+            "name": organization.name,
+            "support_email": organization.email,
+            "support_phone": organization.phone,
         },
         tos_acceptance={"date": 1609798905, "ip": "8.8.8.8"},
     )

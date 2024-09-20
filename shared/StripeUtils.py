@@ -47,6 +47,7 @@ def create_account(organization, bankAccount):
         email=organization.email,
         capabilities={
             'transfers': {'requested': True},
+            'card_payments': {'requested': True},
         },
         business_type="individual",
         individual={

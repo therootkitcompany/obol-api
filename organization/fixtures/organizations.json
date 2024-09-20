@@ -18,7 +18,7 @@
     }
   },
   {
-    "pk": "43b938b8-eb93-42f1-8a91-a9c5b45f3b57",
+    "pk": "43b938b8-eb93-42f1-8a91-a9c5b45f3b56",
     "model": "organization.organization",
     "fields": {
       "name": "Organizacion Benefica",

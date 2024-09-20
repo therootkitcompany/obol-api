@@ -4,7 +4,6 @@ from django.utils.timezone import now
 
 from charges.models import Charge
 from config import settings
-from config.settings import cipher_suite
 from donation.models import Donation
 
 import stripe
@@ -43,7 +42,7 @@ def do_transfer(donation):
                 'event_date': now()
             }
         )
-        donation.creditToken = cipher_suite.encrypt(donation.creditToken.encode())
+        donation.creditToken = settings.cipher_suite.encrypt(donation.creditToken.encode())
         donation.save()
         save_charge(charge, donation)
     except stripe.error.CardError as e:

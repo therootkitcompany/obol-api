@@ -5,12 +5,30 @@
     "fields": {
       "name": "Organizacion Benefica",
       "description": "Pablo Arrastia",
-      "email": "arrastia6@gmail.com",
+      "email": "arrastia@gmail.com",
       "phone": "+34 655435673",
       "bankAccount": "ES0700120345030000067890",
       "countryCode": "ES",
       "currency": "EUR",
-      "line1": "C\\ Cervantes Nº 15",
+      "line1": "C\ Ulzama Nº 10",
+      "city": "Atarrabia",
+      "state": "Navarra",
+      "postalCode": "31610",
+      "web": "https://www.arrastia.me"
+    }
+  },
+  {
+    "pk": "43b938b8-eb93-42f1-8a91-a9c5b45f3b57",
+    "model": "organization.organization",
+    "fields": {
+      "name": "Organizacion Benefica",
+      "description": "Ruben Martinez",
+      "email": "rumabe@gmail.com",
+      "phone": "+34 655435673",
+      "bankAccount": "ES0700120345030000067890",
+      "countryCode": "ES",
+      "currency": "EUR",
+      "line1": "C\ Cervantes Nº 15",
       "city": "Aldeanueva de ebro",
       "state": "La Rioja",
       "postalCode": "26559",

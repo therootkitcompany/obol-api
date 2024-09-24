@@ -47,7 +47,7 @@ class Donation(models.Model):
         null=False,
         blank=False
     )
-    creditToken = models.CharField(max_length=1000)
+    stripePaymentId = models.CharField(max_length=255, unique=True, null=False, blank=False, default='Anonymous')
     clientIp = models.GenericIPAddressField(protocol='both', null=True, blank=True)
     organization = models.ForeignKey(Organization, on_delete=CASCADE, related_name="donations",
                                      related_query_name='donation',
@@ -55,16 +55,3 @@ class Donation(models.Model):
 
     class Meta:
         ordering = ['-id']
-
-    @staticmethod
-    def validate_credit_card(card_number):
-        def digits_of(n):
-            return [int(d) for d in str(n)]
-
-        digits = digits_of(card_number)
-        odd_digits = digits[-1::-2]
-        even_digits = digits[-2::-2]
-        checksum = sum(odd_digits)
-        for d in even_digits:
-            checksum += sum(digits_of(d * 2))
-        return checksum % 10 == 0

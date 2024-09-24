@@ -24,7 +24,7 @@ class ApiErrorLoggingMiddleware(MiddlewareMixin):
         method = request.method
         url = request.build_absolute_uri()
         queryParams = request.GET.dict() if request.GET else None
-        statusCode = exception.error_code
+        statusCode = getattr(exception, 'error_code', 500)
 
         try:
             requestData = request.body.decode('utf-8') if request.body else None

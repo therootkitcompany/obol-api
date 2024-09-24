@@ -16,35 +16,15 @@ stripe.api_key = settings.STRIPE_KEY
 @receiver(post_save, sender=Donation)
 def create_donation(sender, instance, created, **kwargs):
     if created:
-        do_transfer(instance)
+        test(instance)
 
 
-def do_transfer(donation):
+def test(donation):
     try:
-        charge = stripe.Charge.create(
-            amount=donation.amount,
-            currency=donation.currency,
-            description='Donation test',
-            source=donation.creditToken,
-            receipt_email=donation.email,
-            on_behalf_of=donation.organization.stripeId,
-            transfer_data={
-                'destination': donation.organization.stripeId,
-            },
-            application_fee_amount=int(donation.amount * 0.25),
-            ip=donation.clientIp,
-            metadata={
-                'donor_email': donation.email,
-                'donor_name': donation.name + donation.surname,
-                'donation_purpose': 'Church Fundraiser',
-                'connected_account_name': donation.organization.name,
-                'connected_account_email': donation.organization.email,
-                'event_date': now()
-            }
-        )
-        donation.creditToken = settings.cipher_suite.encrypt(donation.creditToken.encode())
-        donation.save()
-        save_charge(charge, donation)
+
+        paymentIntent = stripe.PaymentIntent.retrieve(donation.stripePaymentId)
+        receiptUrl = stripe.Charge.retrieve(paymentIntent.latest_charge).receipt_url
+        save_charge(paymentIntent, receiptUrl, donation)
     except stripe.error.CardError as e:
         body = e.json_body
         err = body.get('error', {})
@@ -68,14 +48,16 @@ def raise_error(message, code, donation):
     raise StripeChargeError(message, code)
 
 
-def save_charge(charge, donation):
+def save_charge(payment, receiptUrl, donation):
     saveCharge: Charge = Charge()
-    saveCharge.status = charge.status
-    saveCharge.receiptUrl = charge.receipt_url
-    saveCharge.paymentMethod = charge.payment_method
-    saveCharge.transferId = charge.transfer
-    saveCharge.amountReceived = charge.amount_captured - charge.application_fee_amount
-    saveCharge.applicationFee = charge.application_fee_amount
-    saveCharge.currency = charge.currency
+    saveCharge.status = payment.status
+    saveCharge.receiptUrl = receiptUrl
+    saveCharge.paymentMethod = payment.payment_method
+    saveCharge.transferId = payment.id
+    applicationFeeAmount = payment.application_fee_amount if payment.application_fee_amount is not None else 0
+    saveCharge.amountReceived = payment.amount - applicationFeeAmount
+    saveCharge.applicationFee = applicationFeeAmount
+    saveCharge.currency = payment.currency
+    saveCharge.description = payment.description
     saveCharge.donation = donation
     saveCharge.save()

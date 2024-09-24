@@ -21,6 +21,7 @@ class Charge(models.Model):
                                 validators=[currencyRegex],
                                 default="EUR"
                                 )
+    description = models.CharField(max_length=1000, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     donation = models.ForeignKey(Donation, on_delete=CASCADE, related_name="charges",

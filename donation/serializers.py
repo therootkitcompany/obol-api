@@ -46,7 +46,7 @@ class DonationSerializer(serializers.ModelSerializer):
 class CreateDonationSerializer(serializers.ModelSerializer):
     idOrganization = serializers.PrimaryKeyRelatedField(queryset=Organization.objects.all(), write_only=True)
     organization = OrganizationSerializer(read_only=True)
-    creditToken = serializers.CharField(write_only=True)
+    stripePaymentId = serializers.CharField(write_only=True)
 
     class Meta:
         model = Donation
@@ -58,8 +58,8 @@ class CreateDonationSerializer(serializers.ModelSerializer):
             'currency',
             'country',
             'city',
-            'creditToken',
             'clientIp',
+            'stripePaymentId',
             'idOrganization',
             'organization'
         )

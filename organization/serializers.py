@@ -21,6 +21,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'state',
             'postalCode',
             'web',
+            'stripeId',
             'created_at'
         )
 

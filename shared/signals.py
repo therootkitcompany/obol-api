@@ -53,7 +53,7 @@ def save_charge(payment, receiptUrl, donation):
     saveCharge.status = payment.status
     saveCharge.receiptUrl = receiptUrl
     saveCharge.paymentMethod = payment.payment_method
-    saveCharge.transferId = payment.id
+    saveCharge.transferId = payment.latest_charge
     applicationFeeAmount = payment.application_fee_amount if payment.application_fee_amount is not None else 0
     saveCharge.amountReceived = payment.amount - applicationFeeAmount
     saveCharge.applicationFee = applicationFeeAmount

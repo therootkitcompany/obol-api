@@ -21,10 +21,10 @@ class CustomErrorMiddleware:
                 'solution': 'Please verify your card details or contact support.'
             }, status=exception.error_code)
 
-        logging.error(f"Unhandled exception: {str(exception)}")
+        # logging.error(f"Unhandled exception: {str(exception)}")
         return JsonResponse({
             'error': 'UnhandledException',
-            'message': 'An unexpected error occurred. Please try again later.',
+            'message': str(exception),
             'status_code': 500
         }, status=500)
 

@@ -13,7 +13,7 @@ class EmailSendException(APIException):
 
 
 def send_email(token, email):
-    token_link = settings.FRONT_URL + "/invoices/" + str(token) + " / "
+    token_link = settings.FRONT_URL + "/invoices/" + str(token) + "/ "
 
     try:
         subject = 'Your Access Token'

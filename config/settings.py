@@ -13,7 +13,7 @@ CRYPTO_KEY = config('CRYPTO_KEY', default='VZlSK7FsSiRvqP5cJVvYRh2o9QY4znPPm5zgI
 cipher_suite = Fernet(CRYPTO_KEY)
 
 STRIPE_KEY = config('STRIPE_KEY',
-                    default='sk_test_51P9rADIvP36SEYQgFmCNBRIdbbk3ZWhFRLpOpiRTuHA5db4fhYlyHmTzsKwMyuQZ3kJNQtyvcQAVUSkAtS235U8B00zJKlIwLQ')
+                    default='sk_test_51Q19OHLgtMo6eLtFmZ9Uj5frYoaY0SLxxn1fdRkYMjwPDOMFMoa9Ig0Zpsmw2P998eC2asxs9jf54QriU0xc37vw00r2k8oE1m')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'organization',
     'charges',
     'apiErrors',
+    'temporaryTokens',
     'shared'
 ]
 
@@ -77,7 +78,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -161,8 +162,8 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Obol API',
-    'DESCRIPTION': 'Obol api project - https://github.com/therootkitcompany/obol-api',
+    'TITLE': 'Donio API',
+    'DESCRIPTION': 'Donio api project - https://github.com/therootkitcompany/obol-api',
     'VERSION': 0,
     'SCHEMA_PATH_PREFIX': r'/v0/',
 }
@@ -203,6 +204,14 @@ ADMIN_URL = config('ADMIN_URL', default='admin/')
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 1
 AXES_USE_USER_AGENT = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
+DEFAULT_FROM_EMAIL = config('EMAIL')
 
 if config('DJANGO_PRODUCTION_ENV', default=False, cast=bool):
     from .settings_production import *

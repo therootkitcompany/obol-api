@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Donation Receipts Are Ready</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .content {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .contentTd {
+            align-content: center;
+            padding: 40px 0;
+        }
+
+        .contentData {
+            width: 600px;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            padding: 40px 30px;
+            text-align: center;
+            background-color: #906f0e;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .header h1 {
+            color: #ffffff;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .body {
+            padding: 40px 30px;
+        }
+
+        .body p {
+            margin: 0 0 20px 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .button-table {
+            margin: 0 auto;
+        }
+
+        .button {
+            border-radius: 4px;
+            background-color: #906f0e;
+            text-align: center;
+        }
+
+        .button a {
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            border: 1px solid #906f0e;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .link {
+            color: #906f0e;
+            text-decoration: underline;
+            word-break: break-all;
+        }
+
+        .footer {
+            padding: 30px;
+            text-align: center;
+            font-size: 14px;
+            background-color: #f8f9fa;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .footer p {
+            margin: 0 0 10px 0;
+        }
+    </style>
+</head>
+<body>
+<table role="presentation" class="content">
+    <tr>
+        <td class="contentTd">
+            <table role="presentation" class="contentData">
+                <tr>
+                    <td class="header">
+                        <h1>Your Donation Receipts Are Ready</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="body">
+                        <p>Dear {{ email }},</p>
+                        <p>Thank you for your generous contributions to our cause. Your donation receipts are now
+                            available for viewing and download.</p>
+                        <p>To access your receipts, please click the button below:</p>
+                        <table role="presentation" class="button-table">
+                            <tr>
+                                <td class="button">
+                                    <a href={{ url }} target="_blank">View My Receipts</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>If the button above doesn't work, you can copy and paste the following link into your
+                            browser:</p>
+                        <p><a href={{ url }} class="link">{{ url }}</a>
+                        </p>
+                        <p>Your receipts will be available for the next 1 hour. After that, you may need to request
+                            them from our web.</p>
+                        <p>Thank you again for your support,<br>The Donio Team</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="footer">
+                        <p>This email was sent to {{ email }}. If you believe you received this email in error,
+                            please contact us.</p>
+                        <p>© 2024 Donio. All rights reserved.</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

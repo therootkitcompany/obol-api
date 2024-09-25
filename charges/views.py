@@ -27,7 +27,7 @@ class GenerateTokenViewSet(DynamicSerializersMixin, viewsets.GenericViewSet):
         email = data.validated_data.get('email')
         token = TemporaryToken.objects.create(email=email, expires_at=expiration_time)
 
-        send_email(request, token.token, email)
+        send_email(token.token, email)
         return Response({"message": "Token sent to email: " + token.email, "validUntil": token.expires_at},
                         status=status.HTTP_201_CREATED)
 

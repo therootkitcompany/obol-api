@@ -12,8 +12,8 @@ class EmailSendException(APIException):
     default_code = 'email_send_failed'
 
 
-def send_email(request, token, email):
-    token_link = f"{request.build_absolute_uri('/get-receipt/')}{token}/"
+def send_email(token, email):
+    token_link = settings.FRONT_URL + "/invoices/" + str(token) + " / "
 
     try:
         subject = 'Your Access Token'

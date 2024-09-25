@@ -49,9 +49,9 @@ class Donation(models.Model):
     )
     stripePaymentId = models.CharField(max_length=255, unique=True, null=False, blank=False, default='Anonymous')
     clientIp = models.GenericIPAddressField(protocol='both', null=True, blank=True)
-    organization = models.ForeignKey(Organization, on_delete=CASCADE, related_name="donations",
+    organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, related_name="donations",
                                      related_query_name='donation',
-                                     null=False, blank=False)
+                                     null=True, blank=True)
 
     class Meta:
         ordering = ['-id']

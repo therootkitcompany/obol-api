@@ -16,7 +16,7 @@ def send_email(request, token, email):
     token_link = f"{request.build_absolute_uri('/get-receipt/')}{token}/"
 
     try:
-        subject = 'Your Receipt Token'
+        subject = 'Your Access Token'
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [email]
 

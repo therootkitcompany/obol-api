@@ -13,7 +13,6 @@ class SimpleDonationSerializer(serializers.ModelSerializer):
             'id',
             'email',
             'name',
-            'surname',
             'created_at',
             'updated_at',
             'amount',
@@ -32,7 +31,6 @@ class DonationSerializer(serializers.ModelSerializer):
             'id',
             'email',
             'name',
-            'surname',
             'organization',
             'created_at',
             'updated_at',
@@ -46,20 +44,12 @@ class DonationSerializer(serializers.ModelSerializer):
 class CreateDonationSerializer(serializers.ModelSerializer):
     idOrganization = serializers.PrimaryKeyRelatedField(queryset=Organization.objects.all(), write_only=True)
     organization = OrganizationSerializer(read_only=True)
-    stripePaymentId = serializers.CharField(write_only=True)
+    stripeSessionId = serializers.CharField(write_only=True)
 
     class Meta:
         model = Donation
         fields = (
-            'email',
-            'name',
-            'surname',
-            'amount',
-            'currency',
-            'country',
-            'city',
-            'clientIp',
-            'stripePaymentId',
+            'stripeSessionId',
             'idOrganization',
             'organization'
         )
@@ -83,7 +73,6 @@ class DonationFilterSet(CustomFilterSet):
         fields = [
             'email',
             'name',
-            'surname',
             'amount',
             'currency',
             'country',

@@ -13,6 +13,7 @@ class Charge(models.Model):
     receiptUrl = models.URLField(blank=True, null=True)
     paymentMethod = models.CharField(max_length=255, blank=True, null=True)
     transferId = models.CharField(max_length=255, blank=True, null=True)
+    chargeId = models.CharField(max_length=255, blank=True, null=True)
     amountReceived = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
     applicationFee = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
     currencyRegex = RegexValidator(regex=r'^[A-Z]{3}$',

@@ -21,7 +21,6 @@ class Donation(models.Model):
         blank=False
     )
     name = models.CharField(max_length=255, null=False)
-    surname = models.CharField(max_length=255, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     amount = models.PositiveIntegerField(default=1)
@@ -36,19 +35,18 @@ class Donation(models.Model):
         validators=[
             MaxLengthValidator(100, message="Country name must be at most 100 characters long.")
         ],
-        null=False,
-        blank=False
+        null=True,
+        blank=True
     )
     city = models.CharField(
         max_length=100,
         validators=[
             MaxLengthValidator(100, message="City name must be at most 100 characters long.")
         ],
-        null=False,
-        blank=False
+        null=True,
+        blank=True
     )
-    stripePaymentId = models.CharField(max_length=255, unique=True, null=False, blank=False, default='Anonymous')
-    clientIp = models.GenericIPAddressField(protocol='both', null=True, blank=True)
+    stripeSessionId = models.CharField(max_length=255, unique=True, null=False, blank=False, default='Anonymous')
     organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, related_name="donations",
                                      related_query_name='donation',
                                      null=True, blank=True)

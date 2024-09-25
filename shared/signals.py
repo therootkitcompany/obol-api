@@ -16,15 +16,15 @@ stripe.api_key = settings.STRIPE_KEY
 @receiver(post_save, sender=Donation)
 def create_donation(sender, instance, created, **kwargs):
     if created:
-        test(instance)
+        save_donation(instance)
 
 
-def test(donation):
+def save_donation(donation):
     try:
-
-        paymentIntent = stripe.PaymentIntent.retrieve(donation.stripePaymentId)
+        session = stripe.checkout.Session.retrieve(donation.stripeSessionId)
+        paymentIntent = stripe.PaymentIntent.retrieve(session.payment_intent)
         receiptUrl = stripe.Charge.retrieve(paymentIntent.latest_charge).receipt_url
-        save_charge(paymentIntent, receiptUrl, donation)
+        save_charge(session, paymentIntent, receiptUrl, donation)
     except stripe.error.CardError as e:
         body = e.json_body
         err = body.get('error', {})
@@ -48,12 +48,13 @@ def raise_error(message, code, donation):
     raise StripeChargeError(message, code)
 
 
-def save_charge(payment, receiptUrl, donation):
+def save_charge(session, payment, receiptUrl, donation):
     saveCharge: Charge = Charge()
     saveCharge.status = payment.status
     saveCharge.receiptUrl = receiptUrl
     saveCharge.paymentMethod = payment.payment_method
-    saveCharge.transferId = payment.latest_charge
+    saveCharge.transferId = payment.id
+    saveCharge.chargeId = payment.latest_charge
     applicationFeeAmount = payment.application_fee_amount if payment.application_fee_amount is not None else 0
     saveCharge.amountReceived = payment.amount - applicationFeeAmount
     saveCharge.applicationFee = applicationFeeAmount
@@ -61,3 +62,12 @@ def save_charge(payment, receiptUrl, donation):
     saveCharge.description = payment.description
     saveCharge.donation = donation
     saveCharge.save()
+
+    donation.email = session.customer_details.email
+    donation.name = session.customer_details.name
+    donation.country = session.customer_details.address.country
+    donation.city = session.customer_details.address.city
+    donation.amount = session.amount_total
+    donation.currency = session.currency
+
+    donation.save()

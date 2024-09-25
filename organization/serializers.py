@@ -39,5 +39,6 @@ class OrganizationFilterSet(CustomFilterSet):
             'line1',
             'city',
             'state',
-            'postalCode'
+            'postalCode',
+            'project'
         ]

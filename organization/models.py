@@ -43,6 +43,7 @@ class Organization(models.Model):
     web = models.CharField(max_length=100, default="https://www.vatican.va/")
     stripeId = models.CharField(max_length=100, default='')
     created_at = models.DateTimeField(default=timezone.now)
+    project = models.CharField(max_length=100, default='')
 
     def clean(self):
         super().clean()

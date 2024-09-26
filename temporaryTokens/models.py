@@ -1,8 +1,8 @@
 import uuid
-from datetime import timezone
 
 from django.core.validators import EmailValidator, MaxLengthValidator
 from django.db import models
+from django.utils.timezone import now
 
 
 class TemporaryToken(models.Model):
@@ -21,4 +21,4 @@ class TemporaryToken(models.Model):
     expires_at = models.DateTimeField()
 
     def is_valid(self):
-        return timezone.now() < self.expires_at
+        return now() < self.expires_at

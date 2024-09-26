@@ -206,7 +206,7 @@ AXES_COOLOFF_TIME = 1
 AXES_USE_USER_AGENT = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = config('EMAIL_HOST', defualt='smtp.gmail.com')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL')

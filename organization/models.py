@@ -8,6 +8,8 @@ from django.db import models
 import re
 from django.core.exceptions import ValidationError
 
+from project.models import Project
+
 
 class Organization(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -43,7 +45,9 @@ class Organization(models.Model):
     web = models.CharField(max_length=100, default="https://www.vatican.va/")
     stripeId = models.CharField(max_length=100, default='')
     created_at = models.DateTimeField(default=timezone.now)
-    project = models.CharField(max_length=100, default='')
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, related_name="organizations",
+                                related_query_name='organization',
+                                null=True, blank=True)
 
     def clean(self):
         super().clean()

@@ -15,7 +15,7 @@
       "state": "Navarra",
       "postalCode": "31610",
       "web": "https://www.arrastia.me",
-      "project": "obol"
+      "project_id": "d8bb8a1a-9c24-46a6-95b3-6622ef9349a0"
     }
   },
   {
@@ -34,7 +34,7 @@
       "state": "La Rioja",
       "postalCode": "26559",
       "web": "https://www.rumabe.dev",
-      "project": "ukraine"
+      "project": "d8bb8a1a-9c24-46a6-95b3-6622ef9349a0"
     }
   }
 ]

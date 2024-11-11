@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'charges',
     'apiErrors',
     'temporaryTokens',
+    'project',
     'shared'
 ]
 
@@ -209,9 +210,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL')
-EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
-DEFAULT_FROM_EMAIL = config('EMAIL')
+EMAIL_HOST_USER = config('EMAIL', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASS', default='')
+DEFAULT_FROM_EMAIL = config('EMAIL', default='')
 FRONT_URL = config('FRONT_URL', 'https://dev.donatetovatican.org')
 
 if config('DJANGO_PRODUCTION_ENV', default=False, cast=bool):

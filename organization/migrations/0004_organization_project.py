@@ -21,5 +21,5 @@ class Migration(migrations.Migration):
             name='project',
             field=models.CharField(default='', max_length=100),
         ),
-        migrations.RunPython(create_organization),
+        # migrations.RunPython(create_organization),
     ]

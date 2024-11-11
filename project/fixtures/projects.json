@@ -1,0 +1,11 @@
+[
+  {
+    "pk": "d8bb8a1a-9c24-46a6-95b3-6622ef9349a0",
+    "model": "project.project",
+    "fields": {
+      "name": "Vaticano",
+      "description": "Donaciones para el Vaticano",
+      "commission": 25
+    }
+  }
+]

@@ -1,10 +1,12 @@
 from rest_framework import serializers
 
 from organization.models import Organization
+from project.serializers import ProjectSerializer
 from shared.Filters import CustomFilterSet
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
+    project = ProjectSerializer(read_only=True)
     class Meta:
         model = Organization
         fields = (
@@ -21,6 +23,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'state',
             'postalCode',
             'web',
+            'project',
             'stripeId',
             'created_at'
         )

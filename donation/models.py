@@ -2,7 +2,6 @@ import uuid
 
 from django.core.validators import EmailValidator, MaxLengthValidator, RegexValidator
 from django.db import models
-from django.db.models.deletion import CASCADE
 
 from organization.models import Organization
 

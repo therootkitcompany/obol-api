@@ -20,7 +20,7 @@ class Project(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
     totalAmount = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     totalDonations = models.IntegerField(default=0)
-    commission = models.IntegerField(default=0)
+    commission = models.IntegerField(default=0, null=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     endDate = models.DateField(null=True, blank=True)

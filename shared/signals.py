@@ -8,6 +8,8 @@ from donation.models import Donation
 
 import stripe
 
+from organization.models import Organization
+from shared.StripeUtils import create_stripe_client
 from shared.errorHandler import StripeChargeError
 
 stripe.api_key = settings.STRIPE_KEY
@@ -17,6 +19,16 @@ stripe.api_key = settings.STRIPE_KEY
 def create_donation(sender, instance, created, **kwargs):
     if created:
         save_donation(instance)
+
+
+@receiver(post_save, sender=Organization)
+def create_donation(sender, instance, created, **kwargs):
+    if created:
+        clients = stripe.Account.list(limit=1000)
+        try:
+            create_stripe_client(instance, clients)
+        except Exception as e:
+            raise_error(f"An unexpected error occurred: {e}", 500, instance)
 
 
 def save_donation(donation):

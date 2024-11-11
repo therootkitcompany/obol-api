@@ -3,7 +3,7 @@ from rest_framework.generics import RetrieveAPIView
 
 from donation.serializers import CreateDonationSerializer
 from project.models import Project
-from project.serializers import ProjectSerializer, ProjectFilterSet
+from project.serializers import ProjectSerializer, ProjectFilterSet, CreateProjectSerializer
 from rest_framework import mixins
 from shared.Filters import GenericViewSetWithFilters
 from shared.mixins import DynamicSerializersMixin, APIKeyPermission
@@ -25,8 +25,10 @@ class ProjectViewSet(DynamicSerializersMixin, mixins.CreateModelMixin, mixins.Up
     filter_backends = (filters.DjangoFilterBackend,)
 
     serializer_classes_by_action = {
-        'create': CreateDonationSerializer,
+        'create': CreateProjectSerializer,
     }
 
-    # def get_permissions(self):
-    #     return [APIKeyPermission()]
+    def get_permissions(self):
+        if self.action == 'destroy' or self.action == 'create' or self.action == 'update' or self.action == 'partial_update':
+            return [APIKeyPermission()]
+        return super().get_permissions()

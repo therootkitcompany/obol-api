@@ -35,6 +35,7 @@ class CreateProjectSerializer(serializers.ModelSerializer):
             'description',
             'goal',
             'status',
+            'commission',
             'endDate'
         )
 

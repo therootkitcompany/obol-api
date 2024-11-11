@@ -11,6 +11,5 @@ def deploy_and_migrate():
     try:
         call_command('loaddata', 'projects.json', verbosity=0)
         call_command('loaddata', 'organizations.json', verbosity=0)
-        create_stripe_clients()
     except Exception as e:
         print("Error loading fixture:", e)

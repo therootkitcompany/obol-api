@@ -21,6 +21,7 @@ class Organization(models.Model):
             MaxLengthValidator(254, message="Email address must be at most 254 characters long.")
         ],
         null=False,
+        unique=True,
         blank=False
     )
     phoneRegex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be in the correct format.")
